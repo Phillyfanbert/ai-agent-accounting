@@ -18,6 +18,7 @@ A proactive financial management agent that automates expense logging, categoriz
 ```bash
 git clone [https://github.com/Phillyfanbert/ai-agent-accounting.git](https://github.com/Phillyfanbert/ai-agent-accounting.git)
 cd ai-agent-accounting
+```
 
 ### 2. Setup Environment
 Navigate to the backend folder and set up your environment variables:
@@ -25,15 +26,18 @@ Navigate to the backend folder and set up your environment variables:
 cd backend
 # Create a .env file and app your API key:
 # GEMINI_API_KEY=your_actual_api_key_here
+```
 
 ### 3. Install Dependencies
 Ensure you are in the backend folder:
 ```bash
 pip install -r requirements.txt
+```
 
 ### 4. Run the Backend
 ```bash
 uvicorn main:app --reload
+```
 
 ## API Documentation
 Once the server is running, explore and test and endpoints interactively by visiting: http://127.0.0.1:8000/docs
