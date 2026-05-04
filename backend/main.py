@@ -31,6 +31,7 @@ def log_expense(expense: schemas.ExpenseCreate, db: Session = Depends(get_db)):
 		amount=expense.amount,
 		category=expense.category,
 		description=expense.description,
+		merchant=expense.merchant,
 		date=expense.date or date.today()
 	)
 	db.add(new_expense)
@@ -70,6 +71,7 @@ def analyze_expense(expense_input: schemas.ExpenseInput, db: Session = Depends(g
 			amount=parsed_data.amount,
 			category=parsed_data.category,
 			description=parsed_data.description,
+			merchant=parsed_data.merchant,
 			date=formatted_date
 		)
 		db.add(db_expense)
@@ -80,6 +82,27 @@ def analyze_expense(expense_input: schemas.ExpenseInput, db: Session = Depends(g
 		db.rollback()
 		raise HTTPException(status_code=500, detail=f"Failed to process expense: {str(e)}")
 		
-		
+@app.put("/expenses/{expense_id}", response_model=schemas.ExpenseCreate)
+def update_expense(expense_id: int, expense_update: schemas.ExpenseCreate, db: Session = Depends(get_db)):
+	db_expense = db.query(models.Expense).filter(models.Expense.id == expense_id).first()
+	if not db_expense:
+		raise HTTPException(status_code=404, detail="Expense not found")
+	db_expense.amount = expense_update.amount
+	db_expense.category = expense_update.category
+	db_expense.description = expense_update.description
+	db_expense.merchant = expense_update.merchant
+	db_expense.date = expense_update.date
+	db.commit()
+	db.refresh(db_expense)
+	return db_expense
+
+@app.delete("/expenses/{expense_id}")
+def delete_expense(expense_id: int, db: Session = Depends(get_db)):
+	db_expense = db.query(models.Expense).filter(models.Expense.id == expense_id).first()
+	if not db_expense:
+		raise HTTPException(status_code=404, detail="Expense not found")
+	db.delete(db_expense)
+	db.commit()
+	return {"message": "Expense deleted successfully"}
 		
 		
