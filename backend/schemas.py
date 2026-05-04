@@ -6,4 +6,13 @@ class ExpenseCreate(BaseModel):
 	amount: float
 	category: str
 	description: str
-	date: Optional[date] = None
+	date: date
+	
+class ExpenseInput(BaseModel):
+	text: str
+	
+class ExpenseExtraction(BaseModel):
+	amount: float
+	category: str
+	description: str
+	date: str

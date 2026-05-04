@@ -1,0 +1,15 @@
+# Python environment
+Venv/
+
+# Environment variables
+.env
+
+# Database file
+accounting.db
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# System files
+.DS_Store
