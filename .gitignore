@@ -3,6 +3,10 @@ backend/venv/
 venv/
 env/
 
+# Environment Variables
+.env
+Backend/.env
+
 # Byte-compiled/ optimized / DLL files
 __pycache__/
 *.pyc
